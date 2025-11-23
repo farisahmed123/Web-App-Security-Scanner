@@ -1,8 +1,27 @@
-# Example URLs file
-# Add your target URLs here (one per line)
+# Example URLs file - Demo vulnerable endpoints for testing
+# These are intentionally vulnerable test endpoints for educational purposes
 # Format: http://example.com/api/endpoint?param1=value1&param2=value2
 
-# Examples:
+# WARNING: These are DEMO URLs - use a test environment only!
+
+# Vulnerable eCommerce Demo App
+http://demo.testfire.net/bank/login.aspx?username=admin&password=test
+http://testphp.vulnweb.com/listproducts.php?cat=1
+http://testphp.vulnweb.com/artists.php?artist=1
+http://testphp.vulnweb.com/search.php?test=query
+
+# DVWA (Damn Vulnerable Web Application) - Local Testing
+http://127.0.0.1/dvwa/vulnerabilities/sqli/?id=1&Submit=Submit
+http://127.0.0.1/dvwa/vulnerabilities/sqli_blind/?id=1&Submit=Submit
+
+# bWAPP (Buggy Web Application) - Local Testing  
+http://127.0.0.1/bWAPP/sqli_1.php?title=test&action=search
+http://127.0.0.1/bWAPP/sqli_2.php?movie=1&action=go
+
+# Web Security Academy Practice
+http://127.0.0.1:3000/product?productId=1
+http://127.0.0.1:3000/filter?category=Gifts
+
+# Safe URLs (No vulnerabilities)
 http://127.0.0.1:8000/api/users/?id=1
 http://127.0.0.1:8000/api/products/?category=electronics&price=100
-http://127.0.0.1:8000/api/search/?query=test
