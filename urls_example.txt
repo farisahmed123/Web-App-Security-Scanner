@@ -1,0 +1,8 @@
+# Example URLs file
+# Add your target URLs here (one per line)
+# Format: http://example.com/api/endpoint?param1=value1&param2=value2
+
+# Examples:
+http://127.0.0.1:8000/api/users/?id=1
+http://127.0.0.1:8000/api/products/?category=electronics&price=100
+http://127.0.0.1:8000/api/search/?query=test
